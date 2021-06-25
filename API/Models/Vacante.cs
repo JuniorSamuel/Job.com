@@ -21,6 +21,8 @@ namespace API.Models
         public string Posicion { get; set; }
         public string Descripcion { get; set; }
         public string Horario { get; set; }
+        public decimal? Telefono { get; set; }
+        public string Correo { get; set;}
         public string Ubicacion { get; set; }
 
         public virtual Categoria IdCategoriaNavigation { get; set; }

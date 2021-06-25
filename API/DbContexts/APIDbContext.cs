@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+
 
 namespace API.DbContexts
 {
@@ -137,6 +137,12 @@ namespace API.DbContexts
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Telefono).HasColumnType("numeric(15, 0)");
+
+                entity.Property(e => e.Correo)
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Ubicacion)
                     .HasMaxLength(45)
                     .IsUnicode(false);
@@ -147,6 +153,11 @@ namespace API.DbContexts
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vacante__IdCateg__3D5E1FD2");
             });
+
+            foreach (var foreingKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreingKey.DeleteBehavior = DeleteBehavior.Cascade;
+            } 
 
             OnModelCreatingPartial(modelBuilder);
         }
