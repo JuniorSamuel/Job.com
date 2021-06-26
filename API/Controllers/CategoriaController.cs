@@ -38,7 +38,7 @@ namespace API.Controllers
         {
             try
             {
-                var categoria = await _categoriasServicios.GetCategoriasByIdAsync(CategoriaId);
+                var categoria = await _categoriasServicios.GetCategoriaByIdAsync(CategoriaId);
                 if (categoria != null)
                     return Ok(categoria);
                 return NotFound();
@@ -59,6 +59,37 @@ namespace API.Controllers
                     guardarCategoria);
             }
             catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Categoria>> UpdateCategoriaAsync(Categoria categoria)
+        {
+            try
+            {
+                var ActualiCategoria = await _categoriasServicios.UpdateCategoriaAsync(categoria);
+                return Ok(ActualiCategoria);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteCategoriaAsync(int CategoriaId)
+        {
+            try
+            {
+                await _categoriasServicios.DeleteCategoriaAsync(CategoriaId);
+                return Ok("Categoria eliminado Satisfactoriamente");
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

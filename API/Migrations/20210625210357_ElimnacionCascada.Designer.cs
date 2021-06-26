@@ -4,14 +4,16 @@ using API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(APIDbContext))]
-    partial class APIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210625210357_ElimnacionCascada")]
+    partial class ElimnacionCascada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,11 +138,6 @@ namespace API.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(45)");
 
-                    b.Property<string>("Correo")
-                        .HasMaxLength(45)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(45)");
-
                     b.Property<string>("Descripcion")
                         .HasMaxLength(250)
                         .IsUnicode(false)
@@ -158,9 +155,6 @@ namespace API.Migrations
                         .HasMaxLength(45)
                         .IsUnicode(false)
                         .HasColumnType("varchar(45)");
-
-                    b.Property<decimal?>("Telefono")
-                        .HasColumnType("numeric(15,0)");
 
                     b.Property<string>("Ubicacion")
                         .HasMaxLength(45)
@@ -210,8 +204,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Categoria", "IdCategoriaNavigation")
                         .WithMany("Vacantes")
                         .HasForeignKey("IdCategoria")
-                        .HasConstraintName("FK__Vacante__IdCateg__3D5E1FD2")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK__Vacante__IdCateg__3D5E1FD2");
 
                     b.Navigation("IdCategoriaNavigation");
                 });

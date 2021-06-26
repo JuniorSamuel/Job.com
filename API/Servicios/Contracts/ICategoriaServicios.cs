@@ -9,8 +9,9 @@ namespace API.Servicios.Contracts
     public interface ICategoriaServicios
     {
         Task<List<Categoria>> GetCategoriasAsync();
-        Task<Categoria> GetCategoriasByIdAsync(int CategoriaId);
+        Task<Categoria> GetCategoriaByIdAsync(int CategoriaId);
         Task<Categoria> AddCategoriasAsync(Categoria categoria);
-
+        Task<Categoria> UpdateCategoriaAsync(Categoria categoria);
+        Task DeleteCategoriaAsync(int CategoriaId);
     }
 }

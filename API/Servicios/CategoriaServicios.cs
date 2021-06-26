@@ -43,12 +43,49 @@ namespace API.Servicios
             }
         }
 
-        public async Task<Categoria> GetCategoriasByIdAsync(int CategoriaId)
+        public async Task<Categoria> GetCategoriaByIdAsync(int CategoriaId)
         {
             try
             {
                 var Categoria = await _dbContext.Categorias.Where(c => c.IdCategoria == CategoriaId).FirstOrDefaultAsync();
                 return Categoria;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<Categoria> UpdateCategoriaAsync(Categoria categoria)
+        {
+            try
+            {
+                if (categoria.IdCategoria > 0)
+                {
+                    _dbContext.Entry(categoria).State = EntityState.Modified;
+                    await _dbContext.SaveChangesAsync();
+                    return categoria;
+                }
+
+                throw new Exception("Categoria no encontrado");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task DeleteCategoriaAsync(int CategoriaId)
+        {
+            try
+            {
+                var Categoria = await GetCategoriaByIdAsync(CategoriaId);
+                if (Categoria != null)
+                {
+                    _dbContext.Set<Categoria>().Remove(Categoria);
+                    //_dbContext.Categoria.Remove(Vacante);
+                    await _dbContext.SaveChangesAsync();
+                }
             }
             catch
             {
