@@ -16,7 +16,10 @@ using API.DbContexts;
 using API.Servicios.Contracts;
 using API.Servicios;
 using API.Models;
-
+using API.Models.Common;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API
 {
@@ -51,6 +54,31 @@ namespace API
             services.AddTransient<ISolicitudServicios, SolicitudServicios>();
 
             services.AddTransient<IVacanteServicios, VacanteServicios>();
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // jwt
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var llave = Encoding.ASCII.GetBytes(appSettings.Secreto);
+            services.AddAuthentication(d =>
+            {
+                d.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                d.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(d =>
+                {
+                    d.RequireHttpsMetadata = false;
+                    d.SaveToken = true;
+                    d.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(llave),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +96,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
