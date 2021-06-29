@@ -6,15 +6,67 @@ using System.Threading.Tasks;
 using API.Servicios.Contracts;
 using API.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using API.Models.Common;
+using Microsoft.Extensions.Options;
+using API.Models.Response;
+using API.Models.Request;
+using API.Tools;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace API.Servicios
 {
     public class UsuarioServicios : IUsuarioServicios
     {
         private readonly APIDbContext _dbContext;
-        public UsuarioServicios(APIDbContext dbContext)
+        private readonly AppSettings _appSettings;
+
+        public UsuarioServicios(APIDbContext dbContext, IOptions<AppSettings> appSettings)
         {
             _dbContext = dbContext;
+
+            _appSettings = appSettings.Value;
+        }
+        public UserResponse Auth(AuthRequest model)
+        {
+            UserResponse userResponse = new UserResponse();
+
+            string contrasena = Encrypt.GetSHA256(model.Contrasena);
+
+            var usuario = _dbContext.Usuarios.Where(d => d.Correo == model.Correo && d.Contrasena == contrasena).FirstOrDefault();
+
+            if (usuario == null) return null;
+            userResponse.Correo = usuario.Correo;
+
+            userResponse.Token = GetToken(usuario);
+
+
+            return userResponse;
+        }
+
+        private string GetToken(Usuario usuario)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var llave = Encoding.ASCII.GetBytes(_appSettings.Secreto);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+                    new Claim[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
+                        new Claim(ClaimTypes.Email, usuario.Correo)
+                    }
+                    ),
+                Expires = DateTime.UtcNow.AddDays(60),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(llave), SecurityAlgorithms.HmacSha256Signature)
+
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
         public async Task<Usuario> AddUsuarioAsync(Usuario usuario)
         {
