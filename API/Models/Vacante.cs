@@ -24,6 +24,8 @@ namespace API.Models
         public decimal? Telefono { get; set; }
         public string Correo { get; set;}
         public string Ubicacion { get; set; }
+        public DateTimeOffset Fecha { get; set; }
+
 
         public virtual Categoria IdCategoriaNavigation { get; set; }
         public virtual ICollection<Solicitud> Solicituds { get; set; }

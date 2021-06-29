@@ -31,7 +31,7 @@ namespace API.DbContexts
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-78698TO; Database= Job_Com; User = sa; Password = JMupia19");
+                optionsBuilder.UseSqlServer("Server=tcp:jobbddbserver.database.windows.net,1433;Initial Catalog=JobBD;Persist Security Info=False;User ID=Junior;Password=ASanto 2001;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -95,7 +95,7 @@ namespace API.DbContexts
                 entity.Property(e => e.Cedula).HasColumnType("numeric(11, 0)");
 
                 entity.Property(e => e.Contrasena)
-                    .HasMaxLength(45)
+                    .HasMaxLength(256)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Correo)
@@ -141,6 +141,10 @@ namespace API.DbContexts
 
                 entity.Property(e => e.Correo)
                     .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("datetimeoffset")
                     .IsUnicode(false);
 
                 entity.Property(e => e.Ubicacion)
