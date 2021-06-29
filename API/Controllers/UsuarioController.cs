@@ -13,33 +13,13 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioServicios _usuarioServicios;
         public UsuarioController(IUsuarioServicios usuarioServicios)
         {
             _usuarioServicios = usuarioServicios;
-        }
-
-        [HttpPost("login")]
-        public IActionResult Autentificar([FromBody] AuthRequest model)
-        {
-            Respuesta respuesta = new Respuesta();
-
-            var userResponse = _usuarioServicios.Auth(model);
-
-            if (userResponse == null)
-            {
-                respuesta.Exito = 0;
-                respuesta.Mensaje = "Usuario o Contrasena incorrecto";
-                return BadRequest(respuesta);
-            }
-
-            respuesta.Exito = 1;
-            respuesta.Data = userResponse;
-
-            return Ok(respuesta);
         }
 
         [HttpGet]
