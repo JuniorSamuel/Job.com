@@ -1,0 +1,134 @@
+<div class="container">
+    <h2>Agregar</h2>
+    <hr>
+    <form [formGroup]='formUsuario'>
+        <div class="form-group row mt-3 ">
+            <div class=" col-sm-12 col-lg-8">
+                <label for="Nombre">Nombre:</label>
+                <input class="form-control lg-3 " type="text" name="nombre" id="nombre" placeholder="Nombre"
+                    formControlName="nombre">
+                <div *ngIf="formUsuario.get('nombre')?.errors && formUsuario.get('nombre')?.touched">
+                    <p *ngIf="formUsuario.get('nombre')?.hasError('required')" class="color-red">
+                        *Nombre es requerido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Apellido">Apellido:</label>
+                <input class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido"
+                    formControlName="apellido">
+                <div *ngIf="formUsuario.get('apellido')?.errors && formUsuario.get('apellido')?.touched">
+                    <p *ngIf="formUsuario.get('apellido')?.hasError('required')" class="color-red">
+                        *Apellido es requerido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <select class="form-select" name="select" formControlName="rol">
+                    <option value="3"> Poster</option>
+                    <option value="2"> Usuario</option>
+                    <option value="1"> Administrador</option>
+                </select>
+                <div *ngIf="formUsuario.get('rol')?.errors && formUsuario.get('rol')?.touched">
+                    <p *ngIf="formUsuario.get('rol')?.hasError('required')" class="color-red">
+                        *Apellido es requerido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Cedula">Cedula:</label>
+                <input class="form-control" type="number" name="cedula" id="cedula" placeholder="Cedula"
+                    formControlName="cedula">
+                <div *ngIf="formUsuario.get('cedula')?.errors && formUsuario.get('cedula')?.touched">
+                    <p *ngIf="formUsuario.get('cedula')?.hasError('required')" class="color-red">
+                        *Cedula es requerido.*
+                    </p>
+                    <!-- <p *ngIf="formUsuario.get('cedula')?.hasError('min')" class="color-red">
+                    *Cedula Invalido.MN*
+                </p>
+                <p *ngIf="formUsuario.get('cedula')?.hasError('max')" class="color-red">
+                    *Cedula Invalido.MX*
+                </p> -->
+                </div>
+            </div>
+            <div class="form-group  mt-3">
+                <div class="col-sm-12 col-lg-8">
+                    <label for="Telefono">Telefono:</label>
+                    <input class="form-control" type="number" name="telefono" id="telefono" placeholder="Telefono"
+                        formControlName="telefono">
+                    <div *ngIf="formUsuario.get('telefono')?.errors && formUsuario.get('telefono')?.touched">
+                        <p *ngIf="formUsuario.get('telefono')?.hasError('required')" class="color-red">
+                            *Telefono es requerido.*
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group  mt-3">
+                    <div class="col-sm-12 col-lg-8">
+                        <label for="Correo">Correo:</label>
+                        <input class="form-control" type="email" name="correo" id="correo" placeholder="Correo"
+                            formControlName="correo">
+                        <div *ngIf="formUsuario.get('correo')?.errors && formUsuario.get('correo')?.touched">
+                            <p *ngIf="formUsuario.get('correo')?.hasError('required')" class="color-red">
+                                *Correo es requerido.*
+                            </p>
+                            <p *ngIf="formUsuario.get('correo')?.hasError('email')" class="color-red">
+                                *Correo Invalido.*
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf='editar == null'>
+                    <div class="form-group  mt-3">
+                        <div class="col-sm-12 col-lg-8">
+                            <label for="Contraseña">Contraseña:</label>
+                            <input class="form-control" type="password" name="contrasena1" id="contrasena1"
+                                placeholder="Contraseña" formControlName="contrasena1">
+                            <div
+                                *ngIf="formUsuario.get('contrasena1')?.errors && formUsuario.get('contrasena1')?.touched">
+                                <p *ngIf="formUsuario.get('contrasena1')?.hasError('required')" class="color-red">
+                                    *Contraseña es requerido.*
+                                </p>
+                                <p *ngIf="formUsuario.get('contrasena1')?.hasError('minlength')" class="color-red">
+                                    *Contraseña Invalido.MN*
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  mt-3">
+                        <div class="col-sm-12 col-lg-8">
+                            <label for="Confirmar Contraseña">Confirmar Contraseña:</label>
+                            <input class="form-control" type="password" name="contrasena2" id="contrasena2"
+                                placeholder="Confirmar Contraseña" formControlName="contrasena2">
+                            <div
+                                *ngIf="formUsuario.get('contrasena2')?.errors && formUsuario.get('contrasena2')?.touched">
+                                <p *ngIf="formUsuario.get('contrasena2')?.hasError('required')" class="color-red">
+                                    *Contraseña es requerido.*
+                                </p>
+                                <p *ngIf="formUsuario.get('contrasena2')?.hasError('minlength')" class="color-red">
+                                    *Contraseña Invalido.MN*
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-sm-12 col-md-2">
+                        <button type="submit" class="btn bg-blue-p text-center" [disabled]="formUsuario.invalid"
+                            (click)="onSubmit()">Guardar</button>
+                    </div>
+                    <div class="col-sm-12 col-md-2">
+                        <input type="reset" value="Cancelar" class="btn btn-danger" (click)="onClickNo()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

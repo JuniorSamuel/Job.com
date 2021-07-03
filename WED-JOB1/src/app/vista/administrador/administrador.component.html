@@ -1,0 +1,54 @@
+<app-navegacion></app-navegacion>
+
+<div class="container hm">
+  <div>
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="Usuarios-tab" data-bs-toggle="tab" data-bs-target="#Usuarios" type="button"
+          role="tab" aria-controls="Usuarios" aria-selected="true">Usuarios</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Poster-tab" data-bs-toggle="tab" data-bs-target="#Poster" type="button" role="tab"
+          aria-controls="Poster" aria-selected="false">Poster</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Administradores-tab" data-bs-toggle="tab" data-bs-target="#Administradores"
+          type="button" role="tab" aria-controls="Administradores" aria-selected="false">Administradores</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Categoria-tab" data-bs-toggle="tab" data-bs-target="#Categoria" type="button"
+          role="tab" aria-controls="Categoria" aria-selected="false">Categoria</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Post-tab" data-bs-toggle="tab" data-bs-target="#Post" type="button" role="tab"
+          aria-controls="Post" aria-selected="false">Post</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="configuracion-tab" data-bs-toggle="tab" data-bs-target="#configuracion"
+          type="button" role="tab" aria-controls="configuracion" aria-selected="false">configuracion</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="Usuarios" role="tabpanel" aria-labelledby="Usuarios-tab">
+        <app-usuario></app-usuario>
+      </div>
+      <div class="tab-pane fade" id="Poster" role="tabpanel" aria-labelledby="Poster-tab">
+        <app-poster></app-poster>
+      </div>
+      <div class="tab-pane fade" id="Administradores" role="tabpanel" aria-labelledby="Administradores-tab">
+        <app-admit></app-admit>
+      </div>
+      <div class="tab-pane fade" id="Categoria" role="tabpanel" aria-labelledby="Categoria-tab">
+        <app-categoria></app-categoria>
+      </div>
+      <div class="tab-pane fade" id="Post" role="tabpanel" aria-labelledby="Post-tab">
+        <app-post></app-post>
+      </div>
+      <div class="tab-pane fade" id="configuracion" role="tabpanel" aria-labelledby="configuracion-tab">
+        <app-config></app-config>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-pie></app-pie>

@@ -1,0 +1,49 @@
+<app-navegacion></app-navegacion>
+
+<div class="container mt-3 hm">
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <form>
+          <input class=" form-control" type="text" name="buscarVacante" id="buscarVacante" placeholder="Buscar Vacante"
+            (keyup)="setFiltro()" value="" [(ngModel)]="filtro">
+        </form>
+      </div>
+    </div>
+  
+    <div class="">
+      <table mat-table [dataSource]="dataSource">
+  
+        <!-- Position Column -->
+        <ng-container matColumnDef="Compañia">
+          <th mat-header-cell *matHeaderCellDef> Compañia </th>
+          <td mat-cell *matCellDef="let element"> {{element.compania}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Posición">
+            <th mat-header-cell *matHeaderCellDef> Posición </th>
+            <td mat-cell *matCellDef="let element"> {{element.posicion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Ubicación">
+            <th mat-header-cell *matHeaderCellDef> Ubicación </th>
+            <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
+        </ng-container> 
+        
+    
+        <ng-container matColumnDef="Opciones">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let element"> <a class="btn btn-success" (click)="onWacht(element)"><i class="bi bi-eye"></i> Ver </a></td>
+          
+        </ng-container>
+  
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  
+
+<app-pie></app-pie>
