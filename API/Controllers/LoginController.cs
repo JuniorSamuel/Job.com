@@ -31,7 +31,7 @@ namespace API.Controllers
             {
                 respuesta.Exito = 0;
                 respuesta.Mensaje = "Usuario o Contrasena incorrecto";
-                return BadRequest(respuesta);
+                return Ok(respuesta);
             }
 
             respuesta.Exito = 1;
