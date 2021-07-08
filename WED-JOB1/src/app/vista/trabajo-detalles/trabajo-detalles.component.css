@@ -1,0 +1,27 @@
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #B0BEC5;
+    background-repeat: no-repeat;
+}
+
+h1{
+    color: gray;
+    font-weight:bold;
+}
+h2{
+    color: gray;
+    font-weight:bold;
+}
+/* label{
+    font-weight:bold;
+} */
+.Descripcion {
+    text-align: justify;
+    color: gray;
+  }
+.fill{
+    font-style:italic;
+    /* font-weight: italic; */
+}

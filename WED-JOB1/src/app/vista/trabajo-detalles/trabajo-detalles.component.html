@@ -1,0 +1,23 @@
+<div class="container mt-2">
+    <h1>{{detalle.categoria}} - {{detalle.vacante.horario}}</h1>
+    <b>{{detalle.vacante.ubicacion}}</b> <br>
+    <b>{{detalle.vacante.compania}}</b> <br>
+    <h2 class="mt-2">Contacto:</h2>
+    <hr>
+    <div>
+        <b>Telefono: </b>
+        <label class="fill">{{detalle.vacante.telefono}}</label> <br>
+        <b>Correo: </b>
+        <label class="fill">{{detalle.vacante.correo}}</label> <br>
+    </div>
+    <h2 class="mt-2">Descripción:</h2>
+    <hr>
+    
+    <div>
+        <b>Tipo: </b>
+        <label class="fill"> Tiempo completo</label> <br>
+        <p class="Descripcion">
+            {{detalle.vacante.descripcion}}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+footer {
+    margin-top: 8px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+    margin-bottom: 0;
+  }
+
+  footer p {
+    display: flex;
+    align-items: center;
+    padding-left: 1em;
+    font-size: 1.2em;
+  }

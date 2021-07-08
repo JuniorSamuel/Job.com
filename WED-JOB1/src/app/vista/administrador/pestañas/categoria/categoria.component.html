@@ -1,0 +1,53 @@
+
+<div>
+    <div class=" justify-content-between row">
+        <div class="col-12 col-md-4">
+            <form>
+                <input class=" form-control" type="text" name="buscarCategoria" id="buscarCategoria"
+                    placeholder="Buscar Categoria" (keyup)="setFiltro($event)" value="" [(ngModel)]="filtro">
+            </form>
+        </div>
+        <div class="col-12 col-md-auto">
+            <button class="btn btn-success" (click)="onCreate()" > 
+                <i class="bi bi-person-plus mx-1"></i> Agregar Categoria
+            </button>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <div *ngIf='datoCargada; else sinData'>
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="Nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" class="d-flex justify-content-end p-1">
+                        <button class="btn btn-warning mx-1" (click)="editar(element)"title="Editar"> 
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger mx-1"  title="Eliminar"> 
+                            <i class="bi bi-trash" (click)="eliminar(element.idCategoria)"></i>
+                        </button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <ng-template #sinData>
+            <div class="w-25 mx-auto">
+                <img src="assets/ic_file.svg" class="" alt="">
+                <h2>Sin registro</h2>
+            </div>
+        </ng-template>
+    </div>
+</div>

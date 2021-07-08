@@ -1,0 +1,180 @@
+<!-- <app-navegacion></app-navegacion> -->
+
+<div class="container">
+    <h2>Postear vacante</h2>
+    <hr>
+    <form [formGroup]='postForm' (ngSubmit)='onSubmit()'>
+        <div class="form-group row mt-3 ">
+            <div class=" col-sm-12 col-lg-8">
+                <label for="validationServer01">Categoria:</label>
+                <input 
+                class="form-control lg-3 " 
+                type="text" 
+                name="categoria" 
+                id="validationServer01"
+                placeholder="Categoria" 
+                formControlName="idCategoria"
+                autofocus>
+
+                <div *ngIf="postForm.get('idCategoria')?.errors && postForm.get('idCategoria')?.touched">
+                    <p *ngIf="postForm.get('idCategoria')?.hasError('required')" class="color-red">
+                        *ID Compañía es requerido.*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("idCategoria")?.errors | json }} -->
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <label for="tiempo">Tiempo:</label>
+            <mat-radio-group id="tiempo" aria-label="Select an option" formControlName='horario'>
+                <mat-radio-button value='Tiempo completo' class="px-2 bg-radio-blup">Tiempo completo</mat-radio-button>
+                <mat-radio-button value='Medio tiempo' class="px-2 bg-radio-blup">Medio tiempo</mat-radio-button>
+                <mat-radio-button value='Freelancer' class="px-2 bg-radio-blup">Freelancer</mat-radio-button>
+            </mat-radio-group>
+            <div *ngIf="postForm.get('horario')?.errors && postForm.get('horario')?.touched">
+                <p *ngIf="postForm.get('horario')?.hasError('required')" class="color-red">
+                    *Horario es requerido.*
+                </p>
+            </div>
+            <!-- {{ postForm.get("horario")?.errors | json }} -->
+        </div>
+                    <!-- //FUNCIONO -->
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="campania">Compañía:</label>
+                <input
+                class="form-control" 
+                type="text" id="campania" 
+                placeholder="Compañía"
+                formControlName="campania" required>
+                
+                <div *ngIf="postForm.get('campania')?.errors && postForm.get('campania')?.touched">
+                    <p *ngIf="postForm.get('campania')?.hasError('required')" class="color-red">
+                        *Compañía es requerido.*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("campania")?.errors | json }} -->
+            </div>
+        </div>
+            <!-- HASTA AQUI -->
+        <!-- <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="url">URL:</label>
+                <input class="form-control" type="text" name="url" id="url" placeholder="URL">
+            </div>
+        </div> -->
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="posicion">Posición:</label>
+                <input 
+                    class="input"
+                    type="text" name="posicion" 
+                    id="posicion" placeholder="Posición"
+                    formControlName="posicion">
+                    
+                    <div *ngIf="postForm.get('posicion')?.errors && postForm.get('posicion')?.touched">
+                        <p *ngIf="postForm.get('posicion')?.hasError('required')" class="color-red">
+                            *Posición es requerido.*
+                        </p>
+                    </div>
+                    <!-- {{ postForm.get("posicion")?.errors | json }} -->
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="ubicacion">Ubicación:</label>
+                <input class="form-control" 
+                type="text" 
+                name="ubicacion" 
+                id="ubicacion" 
+                placeholder="Ubicación"
+                formControlName="ubicacion">
+
+                <div *ngIf="postForm.get('ubicacion')?.errors && postForm.get('ubicacion')?.touched">
+                    <p *ngIf="postForm.get('ubicacion')?.hasError('required')" class="color-red">
+                        *Ubicación es requerido.*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("ubicacion")?.errors | json }} -->
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="ubicacion">Correo:</label>
+                <input 
+                class="form-control" 
+                type="text" 
+                name="correo" 
+                id="correo" 
+                placeholder="Correo"
+                formControlName="correo">
+
+                <div *ngIf="postForm.get('correo')?.errors && postForm.get('correo')?.touched">
+                    <p *ngIf="postForm.get('correo')?.hasError('required')" class="color-red">
+                        *Correo es requerido.*
+                    </p>
+                    <p *ngIf="postForm.get('correo')?.hasError('email')" class="color-red">
+                        *Correo Invalido.*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("correo")?.errors | json }} -->
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="ubicacion">Telefono:</label>
+                <input 
+                class="form-control" 
+                type="number" 
+                name="telefono" 
+                id="telefono" 
+                placeholder="Telefono"
+                formControlName="telefono">
+
+                <div *ngIf="postForm.get('telefono')?.errors && postForm.get('telefono')?.touched">
+                    <p *ngIf="postForm.get('telefono')?.hasError('required')" class="color-red">
+                        *Telefono es requerido.*
+                    </p>
+                    <p *ngIf="postForm.get('telefono')?.hasError('minlength')" class="color-red">
+                        *Telefono Invalido.MN*
+                    </p>
+                    <p *ngIf="postForm.get('telefono')?.hasError('maxlength')" class="color-red">
+                        *Telefono Invalido.MX*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("telefono")?.errors | json }} -->
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="descripcion">Descripción:</label>
+                <textarea 
+                class="form-control" 
+                name="descripcion" 
+                id="descripcion" 
+                cols="30" rows="10"
+                placeholder="Descripción" 
+                formControlName="descripcion">
+                <div *ngIf="postForm.get('descripcion')?.errors && postForm.get('descripcion')?.touched">
+                    <p *ngIf="postForm.get('descripcion')?.hasError('required')" class="color-red">
+                        *Correo es requerido.*
+                    </p>
+                    <p *ngIf="postForm.get('descripcion')?.hasError('maxLength')" class="color-red">
+                        *Ha pasado el limite de caracteres.*
+                    </p>
+                </div>
+                <!-- {{ postForm.get("descripcion")?.errors | json }} -->
+            </textarea>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <div class="col-sm-12 col-md-2">
+                <button type="submit" value="Agregar" class="btn btn-success" [disabled]="postForm.invalid">Guardar</button>
+            </div>
+            <div class="col-sm-12 col-md-2">
+                <button type="reset" value="Cancelar" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>

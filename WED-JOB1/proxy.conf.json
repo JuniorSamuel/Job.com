@@ -1,0 +1,7 @@
+{
+    "/api/*":{
+        "target": "https://api-job.azurewebsites.net/",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
