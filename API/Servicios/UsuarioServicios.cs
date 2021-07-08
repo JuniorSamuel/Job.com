@@ -144,9 +144,11 @@ namespace API.Servicios
         {
             try
             {
-                if(usuario.IdUsuario > 0)
+                usuario.Contrasena = Encrypt.GetSHA256(usuario.Contrasena);
+                var contra = usuario.Contrasena;
+
+                if (usuario.IdUsuario > 0)
                 {
-                    var contra = usuario.Contrasena;
                     
                     _dbContext.Entry(usuario).State = EntityState.Modified;
                     if(usuario.Contrasena == null)
