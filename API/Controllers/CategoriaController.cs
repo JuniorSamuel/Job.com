@@ -15,7 +15,7 @@ namespace API.Controllers
     [Authorize]
     public class CategoriaController : ControllerBase
     {
-        private readonly ICategoriaServicios _categoriasServicios;
+        private  readonly ICategoriaServicios _categoriasServicios;
         public CategoriaController(ICategoriaServicios categoriasServicios)
         {
             _categoriasServicios = categoriasServicios;
