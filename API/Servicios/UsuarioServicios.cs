@@ -146,7 +146,13 @@ namespace API.Servicios
             {
                 if(usuario.IdUsuario > 0)
                 {
+                    var contra = usuario.Contrasena;
+                    
                     _dbContext.Entry(usuario).State = EntityState.Modified;
+                    if(usuario.Contrasena == null)
+                    {
+                        usuario.Contrasena = contra;
+                    }
                     await _dbContext.SaveChangesAsync();
                     return usuario;
                 }
