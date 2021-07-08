@@ -104,6 +104,18 @@ namespace API.Servicios
             }
         }
 
+        private async Task<Usuario> GetUsuarioByIdCompletoAsync(int UsuarioId)
+        {
+            try
+            {
+                var Usuario = await _dbContext.Usuarios.Where(u => u.IdUsuario == UsuarioId).FirstOrDefaultAsync();
+                return Usuario; 
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public async Task<Usuario> GetUsuarioByIdAsync(int UsuarioId)
         {
             try
@@ -171,7 +183,7 @@ namespace API.Servicios
         {
             try
             {
-                var Usuario = await GetUsuarioByIdAsync(UsuarioId);
+                var Usuario = await GetUsuarioByIdCompletoAsync(UsuarioId);
                 if(Usuario != null)
                 {
                     _dbContext.Set<Usuario>().Remove(Usuario);

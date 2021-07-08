@@ -55,6 +55,8 @@ namespace API
 
             services.AddTransient<IVacanteServicios, VacanteServicios>();
 
+            services.AddTransient<IConfigServicios, ConfigServicios>();
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 

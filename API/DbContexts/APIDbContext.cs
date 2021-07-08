@@ -25,6 +25,7 @@ namespace API.DbContexts
         public virtual DbSet<Solicitud> Solicitudes { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Vacante> Vacantes { get; set; }
+        public virtual DbSet<Config> Configs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -152,6 +153,14 @@ namespace API.DbContexts
                     .HasForeignKey(d => d.IdCategoria)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vacante__IdCateg__3D5E1FD2");
+            });
+
+            modelBuilder.Entity<Config>(entity =>
+            {
+                entity.HasKey(e => e.IdConfig)
+                    .HasName("PK__Configur__79F21764285414C5");
+
+                entity.Property(e => e.CantidadFilas).HasColumnType("int");
             });
 
             foreach (var foreingKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
