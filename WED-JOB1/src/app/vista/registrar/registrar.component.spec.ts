@@ -8,7 +8,7 @@ describe('RegistrarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrarComponent ]
+      imports: [ RegistrarComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('RegistrarComponent', () => {
     fixture = TestBed.createComponent(RegistrarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

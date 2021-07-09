@@ -25,7 +25,7 @@ namespace API.Controllers
 
         // GET: api/<Verificar>
         [HttpGet]
-        public async Task<bool> Get()
+        public bool Get()
         {
             return  true;
         }
@@ -43,9 +43,7 @@ namespace API.Controllers
                 if (value.Apellido != usuarios.Apellido) return false;
                 if (value.Correo != usuarios.Correo) return false;
                 if (value.Cedula != usuarios.Cedula) return false;
-                if (value.Telefono != usuarios.Telefono) return false;
-                
-                
+                if (value.Telefono != usuarios.Telefono) return false;                
             }
             catch (Exception)
             {

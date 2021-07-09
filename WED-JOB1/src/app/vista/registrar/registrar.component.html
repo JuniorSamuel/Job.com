@@ -5,89 +5,116 @@
         <div class="form-group row mt-3 ">
             <div class=" col-sm-12 col-lg-8">
                 <label for="Nombre">Nombre:</label>
-                <input 
-                class="form-control lg-3 " 
-                type="text" 
-                name="Nombre" 
-                id="Nombre" 
-                placeholder="Nombre">
-
+                <input class="form-control lg-3 " type="text" name="nombre" id="nombre" placeholder="Nombre"
+                    formControlName="nombre">
+                <div *ngIf="formRegis.get('apellido')?.errors && formRegis.get('apellido')?.touched">
+                    <p *ngIf="formRegis.get('apellido')?.hasError('required')" class="color-red">
+                        *Nombre es requerido.*
+                    </p>
+                </div>
             </div>
         </div>
         <div class="form-group  mt-3">
             <div class="col-sm-12 col-lg-8">
                 <label for="Apellido">Apellido:</label>
-                <input 
-                class="form-control" 
-                type="text" 
-                name="Apellido" 
-                id="Apellido" 
-                placeholder="Apellido">
-
+                <input class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido"
+                    formControlName="apellido">
+                <div *ngIf="formRegis.get('rol')?.errors && formRegis.get('rol')?.touched">
+                    <p *ngIf="formRegis.get('rol')?.hasError('required')" class="color-red">
+                        *Apellido es requerido.*
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
-            <label for="Cedula">Cedula:</label>
-            <input 
-            class="form-control" 
-            type="number" 
-            name="Cedula" 
-            id="Cedula" 
-            placeholder="Cedula">
-
-        </div></div>
-        <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
-            <label for="Telefono">Telefono:</label>
-            <input 
-            class="form-control" 
-            type="number" 
-            name="Telefono" 
-            id="Telefono" 
-            placeholder="Telefono">
-
-        </div></div>
-        <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
-            <label for="Correo">Correo:</label>
-            <input 
-            class="form-control" 
-            type="email" 
-            name="Correo" 
-            id="Correo" 
-            placeholder="Correo">
-
-        </div></div>
-        <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
-            <label for="Contraseña">Contraseña:</label>
-            <input 
-            class="form-control" 
-            type="password" 
-            name="Contraseña" 
-            id="Contraseña" 
-            placeholder="Contraseña">
-
-        </div></div>
-        <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
-            <label for="Confirmar Contraseña">Confirmar Contraseña:</label>
-            <input 
-            class="form-control" 
-            type="password" 
-            name="Confirmar Contraseña" 
-            id="Confirmar Contraseña" 
-            placeholder="Confirmar Contraseña">
-
-        </div></div>
         <div class="form-group row mt-3">
-            <div class="col-sm-12 col-md-2">
-                <button type="submit" class="btn bg-blue-p text-center">Registrarse</button>
-            </div>
-            <div class="col-sm-12 col-md-2">   
-                <input type="reset" value="Cancelar" class="btn btn-danger">
+            <div class="col-sm-12 col-lg-8">
+                <select class="form-select" name="select" formControlName="rol">
+                    <option value="3"> Poster</option>
+                    <option value="2"> Usuario</option>
+                </select>
+                <div *ngIf="formRegis.get('rol')?.errors && formRegis.get('rol')?.touched">
+                    <p *ngIf="formRegis.get('rol')?.hasError('required')" class="color-red">
+                        *Rol es requerido.*
+                    </p>
+                </div>
             </div>
         </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Cedula">Cedula:</label>
+                <input class="form-control" type="number" name="cedula" id="cedula" placeholder="Cedula"
+                    formControlName="cedula">
+                <div *ngIf="formRegis.get('cedula')?.errors && formRegis.get('cedula')?.touched">
+                    <p *ngIf="formRegis.get('cedula')?.hasError('required')" class="color-red">
+                        *Cedula es requerido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Telefono">Telefono:</label>
+                <input class="form-control" type="number" name="telefono" id="telefono" placeholder="Telefono"
+                    formControlName="telefono">
+                <div *ngIf="formRegis.get('telefono')?.errors && formRegis.get('telefono')?.touched">
+                    <p *ngIf="formRegis.get('telefono')?.hasError('required')" class="color-red">
+                        *Telefono es requerido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Correo">Correo:</label>
+                <input class="form-control" type="email" name="correo" id="correo" placeholder="Correo"
+                    formControlName="correo">
+                <div *ngIf="formRegis.get('correo')?.errors && formRegis.get('correo')?.touched">
+                    <p *ngIf="formRegis.get('correo')?.hasError('required')" class="color-red">
+                        *Correo es requerido.*
+                    </p>
+                    <p *ngIf="formRegis.get('correo')?.hasError('email')" class="color-red">
+                        *Correo Invalido.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Contraseña">Contraseña:</label>
+                <input class="form-control" type="password" name="contrasena1" id="contrasena1" placeholder="Contraseña"
+                    formControlName="contrasena1">
+                <div *ngIf="formRegis.get('contrasena1')?.errors && formRegis.get('contrasena1')?.touched">
+                    <p *ngIf="formRegis.get('contrasena1')?.hasError('required')" class="color-red">
+                        *Contraseña es requerido.*
+                    </p>
+                    <p *ngIf="formRegis.get('contrasena1')?.hasError('minlength')" class="color-red">
+                        *La contraseña debe tener al menos 8 caracteres.*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  mt-3">
+            <div class="col-sm-12 col-lg-8">
+                <label for="Confirmar Contraseña">Confirmar Contraseña:</label>
+                <input class="form-control" type="password" name="contrasena2" id="contrasena2"
+                    placeholder="Confirmar Contraseña" formControlName="contrasena2">
+                <div *ngIf="formRegis.get('contrasena2')?.errors && formRegis.get('contrasena2')?.touched">
+                    <p *ngIf="formRegis.get('contrasena2')?.hasError('required')" class="color-red">
+                        *Contraseña es requerido.*
+                    </p>
+                    <p *ngIf="formRegis.get('contrasena2')?.hasError('minlength')" class="color-red">
+                        *La contraseña debe tener al menos 8 caracteres.*
+                    </p>
+                </div>
+            </div>
+        </div>
+            <div class="form-group row mt-3" style="display:flex; flex-wrap:wrap;  " >
+                
+                <ul style="list-style:  none; text-decoration:none; display:flex; flex-wrap:wrap;">
+                    <li> <button type="submit" class="btn bg-blue-p text-center" [disabled]="formRegis.invalid"(click)="onSubmit() " style="height:37px; margin-left:5px; " >Registrarse</button></li>
+                    <li><input type="reset" value="Cancelar" class="btn btn-danger" (click)="onClickNo()" style="margin:0px 0px 0px 10px;   width:100px;"></li>
+                </ul>
+                
+            </div>
     </form>
 </div>

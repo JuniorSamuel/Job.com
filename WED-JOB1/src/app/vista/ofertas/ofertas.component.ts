@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IVacante } from 'src/app/modelo/vacante';
 import { DatosService } from 'src/app/servicios/cargar/datos.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ofertas',
@@ -18,12 +18,12 @@ export class OfertasComponent implements OnInit {
   id!: number;
   categoria: string = '';
 
-  vacantes: IVacante[] = [];
+  vacantes: IVacante[];
 
 
   //Table
   displayedColumns: string[] = ['Compañia', 'Posición', 'Ubicación', 'Opciones'];
-  dataSource = new MatTableDataSource<IVacante>(this.vacantes)
+  dataSource = new MatTableDataSource<IVacante>()
 
   //Filtro
   filtro: string = ''
@@ -34,7 +34,13 @@ export class OfertasComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   //#endregion
 
-  constructor(private datos: DatosService, private _rutaPametros: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(
+    private _datos: DatosService,
+    private _rutaPametros: ActivatedRoute,
+    private dialog: MatDialog
+  ) {
+    this.vacantes = _datos.vacante
+  }
 
 
   ngOnInit(): void {
@@ -42,9 +48,11 @@ export class OfertasComponent implements OnInit {
       this.id = parametro.id;
       this.categoria = parametro.categoria;
     });
-    
-    this.datos.getVacanteApi();
-    this.getVacante();
+    if (this.vacantes.length == 0) {
+      this._datos.getVacanteApi();
+      this.getVacante();
+    }
+    this.tabla(this.vacantes)
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -66,21 +74,25 @@ export class OfertasComponent implements OnInit {
   }
 
   getVacante() {
-    this.datos.getVacante().subscribe((respuesta: IVacante[]) => {
-      this.dataSource = new MatTableDataSource(respuesta.filter( ( x) => { return x.idCategoria == this.id}));
-      this.dataSource.paginator = this.paginator
+    this._datos.getVacante().subscribe((respuesta: IVacante[]) => {
+      this.tabla(respuesta);
     }, (err: any) => {
       console.error(err);
     });
   }
-  onWacht(vacante: IVacante){
+
+  tabla(v: IVacante[]) {
+    this.dataSource = new MatTableDataSource(v.filter((x) => { return x.idCategoria == this.id }));
+    this.dataSource.paginator = this.paginator
+  }
+  onWacht(vacante: IVacante) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50%";
     dialogConfig.height = "96%";
-    dialogConfig.data = {vacante: vacante, categoria: this.categoria };
+    dialogConfig.data = { vacante: vacante, categoria: this.categoria };
     console.log(vacante.horario)
-    this.dialog.open(TrabajoDetallesComponent,dialogConfig);
+    this.dialog.open(TrabajoDetallesComponent, dialogConfig);
   }
 }

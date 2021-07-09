@@ -11,40 +11,43 @@ import { DatosService } from 'src/app/servicios/cargar/datos.service';
 })
 export class CargarComponent implements OnInit {
 
+  //#region Variables
   usuariosCargador = [];
-  vacantesCargadas: boolean= false;
+  vacantesCargadas: boolean = false;
   categoriasCargadas: boolean = false;
-  constructor(private datos: DatosService, private routing: Router) { }
+  //#endregion
+
+  constructor(
+    private _datos: DatosService,
+    private _routing: Router
+  ) { }
 
   ngOnInit(): void {
-    this.datos.getCategoriasApi();
-    this.datos.getVacanteApi();
-    this.datos.getRolApi();
+    this._datos.getCategoriasApi();
+    this._datos.getVacanteApi();
+    this._datos.getRolApi();
     this.getCategoria();
     this.getVacante()
 
   }
+
   cargado() {
-   if(this.categoriasCargadas && this.vacantesCargadas){
-     
-      this.routing.navigate(['Principal']);
-   }
-     
+    if (this.categoriasCargadas && this.vacantesCargadas) {
+      this._routing.navigate(['Principal']);
+    }
   }
 
-  getCategoria(){
-    this.datos.getCategoria().subscribe( (respuesta: ICategoria[]) => {
+  getCategoria() {
+    this._datos.getCategoria().subscribe((respuesta: ICategoria[]) => {
       this.categoriasCargadas = true;
-      console.log(respuesta);
       this.cargado();
-      
+
     });
   }
 
-  getVacante(){
-    this.datos.getVacante().subscribe((respuesta: IVacante[]) => {
-      this.vacantesCargadas= true;
-      console.log(respuesta);
+  getVacante() {
+    this._datos.getVacante().subscribe((respuesta: IVacante[]) => {
+      this.vacantesCargadas = true;
       this.cargado();
     })
   }

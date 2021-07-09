@@ -8,7 +8,7 @@ describe('AgregarCategoriaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarCategoriaComponent ]
+      imports: [ AgregarCategoriaComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('AgregarCategoriaComponent', () => {
     fixture = TestBed.createComponent(AgregarCategoriaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

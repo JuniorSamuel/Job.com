@@ -10,7 +10,7 @@ describe('IniciadoGuard', () => {
     guard = TestBed.inject(IniciadoGuard);
   });
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+  // it('should be created', () => {
+  //   expect(guard).toBeTruthy();
+  // });
 });

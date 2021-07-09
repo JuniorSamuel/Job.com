@@ -8,7 +8,7 @@ describe('PerfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PerfilComponent ]
+      imports: [ PerfilComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('PerfilComponent', () => {
     fixture = TestBed.createComponent(PerfilComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

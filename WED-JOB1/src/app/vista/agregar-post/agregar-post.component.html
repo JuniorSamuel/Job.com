@@ -7,21 +7,14 @@
         <div class="form-group row mt-3 ">
             <div class=" col-sm-12 col-lg-8">
                 <label for="validationServer01">Categoria:</label>
-                <input 
-                class="form-control lg-3 " 
-                type="text" 
-                name="categoria" 
-                id="validationServer01"
-                placeholder="Categoria" 
-                formControlName="idCategoria"
-                autofocus>
-
+                <select name="categoria" id="validationServer01" class=" form-select" formControlName="idCategoria"  placeholder="Seleccionar"  autofocus>
+                    <option *ngFor='let c of categoria' value="{{c.idCategoria}}"> {{c.nombre}}</option>
+                </select>
                 <div *ngIf="postForm.get('idCategoria')?.errors && postForm.get('idCategoria')?.touched">
                     <p *ngIf="postForm.get('idCategoria')?.hasError('required')" class="color-red">
                         *ID Compañía es requerido.*
                     </p>
                 </div>
-                <!-- {{ postForm.get("idCategoria")?.errors | json }} -->
             </div>
         </div>
         <div class="form-group  mt-3">
@@ -170,10 +163,10 @@
 
         <div class="form-group row mt-3">
             <div class="col-sm-12 col-md-2">
-                <button type="submit" value="Agregar" class="btn btn-success" [disabled]="postForm.invalid">Guardar</button>
+                <button type="submit" value="Agregar" class="btn btn-success" (click)="onSubmit()" [disabled]="postForm.invalid">Guardar</button>
             </div>
             <div class="col-sm-12 col-md-2">
-                <button type="reset" value="Cancelar" class="btn btn-danger">Cancelar</button>
+                <button type="reset" value="Cancelar" class="btn btn-danger" (click)="onClickNo()">Cancelar</button>
             </div>
         </div>
     </form>

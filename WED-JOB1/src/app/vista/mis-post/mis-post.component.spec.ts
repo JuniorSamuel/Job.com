@@ -8,7 +8,7 @@ describe('MisPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MisPostComponent ]
+      imports: [ MisPostComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('MisPostComponent', () => {
     fixture = TestBed.createComponent(MisPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

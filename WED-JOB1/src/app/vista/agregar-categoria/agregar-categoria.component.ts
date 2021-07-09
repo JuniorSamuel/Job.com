@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class AgregarCategoriaComponent implements OnInit {
 
   categoria: ICategoria | undefined;
-  
+
   formCagoria = this.formBuilder.group({
     idCategoria: new FormControl(''),
     nombre: ['', Validators.required]
@@ -23,7 +23,7 @@ export class AgregarCategoriaComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AgregarCategoriaComponent>, private _dato: DatosService, @Inject(MAT_DIALOG_DATA) public editar: ICategoria, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    if(this.editar != null){
+    if (this.editar != null) {
       this.onEdit();
     }
   }
@@ -41,14 +41,8 @@ export class AgregarCategoriaComponent implements OnInit {
         title: 'Ha sido guardado.',
         showConfirmButton: false,
         timer: 1500
-        
-      })
-      // this._dato.postCategoria(this.categoria);
+      });
     } else {
-      this.categoria = {
-        idCategoria: this.formCagoria.value.idCategoria,
-        nombre: this.formCagoria.value.nombre
-      }
       Swal.fire({
         title: 'Quiere guardar los cambios?',
         showDenyButton: true,
@@ -57,13 +51,16 @@ export class AgregarCategoriaComponent implements OnInit {
         denyButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          this._dato.putCategoria( {idCategoria: this.formCagoria.value.idCategoria, nombre: this.formCagoria.value.nombre});
+          this._dato.putCategoria({
+            idCategoria: this.formCagoria.value.idCategoria,
+            nombre: this.formCagoria.value.nombre
+          });
+
           Swal.fire('Editado!', '', 'success')
         } else if (result.isDenied) {
           Swal.fire('Los cambios no se guardaron', '', 'info')
         }
-      })
-      // this._dato.putCategoria(this.categoria);
+      });
     }
 
     this.onClickNo()

@@ -1,16 +1,22 @@
 <div class="container mt-2">
-    <h1>{{detalle.categoria}} - {{detalle.vacante.horario}}</h1>
-    <b>{{detalle.vacante.ubicacion}}</b> <br>
-    <b>{{detalle.vacante.compania}}</b> <br>
-    <h2 class="mt-2">Contacto:</h2>
+    <h1>{{detalle.vacante.posicion}} - {{detalle.vacante.horario}}</h1>
+    <img src="assets\icons8-calendario-50.png" alt="Horario" width="20" height="22">
+    <b> {{detalle.vacante.fecha}}</b> <br>
+    <img src="assets\icons8-geo-cerca-50.png" alt="Ubicacion" width="20" height="22">
+    <b> {{detalle.vacante.ubicacion}}</b> <br>
+    <img src="assets\icons8-empresa-50.png" alt="CompaÑia" width="20" height="22">
+    <b> {{detalle.vacante.compania}}</b> <br>
+    <h2 class="mt-2"><img src="assets\icons8-añadir-contacto-a-empresa-80 gris.png" alt="Contacto" width="20" height="22"> Contacto:</h2>
     <hr>
     <div>
-        <b>Telefono: </b>
-        <label class="fill">{{detalle.vacante.telefono}}</label> <br>
-        <b>Correo: </b>
-        <label class="fill">{{detalle.vacante.correo}}</label> <br>
+        <!-- <b>Telefono: </b> -->
+        <img src="assets\icons8-teléfono-desconectado-50.png" alt="Telefono" width="20" height="22">
+        <label class="fill"> {{detalle.vacante.telefono}}</label> <br>
+        <!-- <b>Correo: </b> -->
+        <img src="assets\icons8-email-64.png" alt="Correo" width="20" height="22">
+        <label class="fill"> {{detalle.vacante.correo}}</label> <br>
     </div>
-    <h2 class="mt-2">Descripción:</h2>
+    <h2 class="mt-2"><img src="assets\icons8-información-30 gris.png" alt="Descripción" width="20" height="22"> Descripción:</h2>
     <hr>
     
     <div>
@@ -19,5 +25,8 @@
         <p class="Descripcion">
             {{detalle.vacante.descripcion}}
         </p>
+    </div>
+    <div>
+        <button class="btn btn-danger" (click)="onClick()">Cerrar</button>
     </div>
 </div>

@@ -1,37 +1,40 @@
-<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto my-3">
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto my-3 hm">
     <div class="row">
         <div class="col-lg-6">
             <div class="card1 pb-5">
-                <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                    <img src="assets/login.svg" class="image">
+                <div class="row px-3 justify-content-center mt-4 mb-5 " style="display:flex; flex-wrap:wrap;">
+                    <img src="assets/login.svg" class="image" style="margin: 40px 0px -40px 0px; ">
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card2 card border-0 px-4 py-5">
-                <h1 class="t-2">Job.com</h1>
+        <div class="col-lg-6" style="display:flex; flex-wrap:wrap;">
+            
+            <div class="contenedor">
+                <h1 class="t-2" style=" display:flex; justify-content:center;" >Iniciar Sesion</h1>
                 <form [formGroup]='loginForm'>
                     <div class="row px-3">
                         <label class="mb-1">
-                            <h6 class="mb-0 text-sm">Usuario</h6>
+                           <!-- <h6 class="mb-0 text-sm">Usuario</h6>-->
                         </label>
-                        <input class="mb-4" type="text" name="email" placeholder="Usuario" formControlName="correo">
+                        <input class="mb-4" type="text" name="email" placeholder="Username" formControlName="correo" style="margin-top: 40px;">
                     </div>
                     <div class="row px-3">
                         <label class="mb-1">
-                            <h6 class="mb-0 text-sm">Contraseña</h6>
+                            <!--<h6 class="mb-0 text-sm">Contraseña</h6>-->
                         </label>
                         <input type="password" name="password" placeholder="Contraseña" formControlName= "contrasena">
                     </div>
                     <div class="row px-3 mb-4">
                         <!-- <a href="#" class="ml-auto mb-0 text-sm">¿Olvide la contraseñá?</a> -->
                     </div>
-                    <div class="row mb-3 px-3">
-                        <button type="submit" class="btn bg-blue-p text-center" (click)="login()">Login</button>
+                    <div class="row mb-3 px-3" style="    display:flex; 
+                    justify-content:center;">
+                        <button type="submit"  (click)="login()" style="display:flex; justify-content:center;">Login</button>
                     </div>
                 </form>
                 <div class="row mb-4 px-3">
-                    <small class="font-weight-bold">No tengo cuenta
+                    <small class="font-weight-bold" style="display:flex; justify-content:center;">No tengo cuenta
                         <a class="text-danger" (click)="onCreate()">Registrarse</a>
                     </small>
                 </div>
@@ -39,5 +42,5 @@
         </div>
     </div>
 </div>
-
+ 
 <app-pie></app-pie>

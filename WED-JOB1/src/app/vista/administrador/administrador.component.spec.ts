@@ -13,13 +13,17 @@ describe('AdministradorComponent', () => {
     .compileComponents();
   });
 
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ AdministradorComponent ]
+    })
+    .compileComponents();
+  });
+
+
   beforeEach(() => {
     fixture = TestBed.createComponent(AdministradorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

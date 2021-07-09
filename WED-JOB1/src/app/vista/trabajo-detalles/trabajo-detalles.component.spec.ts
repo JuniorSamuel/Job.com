@@ -8,7 +8,7 @@ describe('TrabajoDetallesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrabajoDetallesComponent ]
+      imports: [ TrabajoDetallesComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('TrabajoDetallesComponent', () => {
     fixture = TestBed.createComponent(TrabajoDetallesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

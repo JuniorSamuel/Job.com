@@ -33,17 +33,19 @@
 
                 <ng-container matColumnDef="Acciones">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element" >
-                        <a class="btn btn-success"
+                    <td mat-cell *matCellDef="let element" class="d-flex justify-content-end p-1"> 
+                        <a class="btn btn-success mx-1" title="Detalles"
                             (click)="onDetalle(element, false)">
-                            <i class="bi bi-eye"></i></a>
-
-                        <a class="btn btn-warning"
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a class="btn btn-warning mx-1" title="Editar"
                             (click)="onDetalle(element, true)">
-                            <i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger"
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a class="btn btn-danger mx-1" title="Eliminar"
                             (click)="eliminar(element.idUsuario)">
-                            <i class="bi bi-trash"></i></a>
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </td>
                 </ng-container>
 

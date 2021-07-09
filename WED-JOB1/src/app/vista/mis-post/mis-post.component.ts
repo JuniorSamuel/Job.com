@@ -17,16 +17,16 @@ import { TrabajoDetallesComponent } from '../trabajo-detalles/trabajo-detalles.c
 export class MisPostComponent implements OnInit {
 
   //#region Variables
-  vacantes: IVacante[] = [];
+  vacantes: IVacante[];
   usuario: IUsuario;
 
   //Table
   displayedColumns: string[] = ['Compañia', 'Posición', 'Ubicación', 'Opciones'];
-  dataSource = new MatTableDataSource<IVacante>(this.vacantes)
+  dataSource = new MatTableDataSource<IVacante>()
 
   //Filtro
   filtro: string = ''
-  
+
 
   // MatPaginator Inputs
   length = 100;
@@ -35,25 +35,29 @@ export class MisPostComponent implements OnInit {
 
 
   //#endregion
-  constructor(private datos: DatosService, private dialog: MatDialog, private cookieS: CookieService) { 
-    
+  constructor(private _datos: DatosService, private dialog: MatDialog, private cookieS: CookieService) {
+
+    this.vacantes = _datos.vacante;
     this.usuario = {
       idUsuario: parseInt(this.cookieS.get('ID')),
-      nombre: cookieS.get('nombre'), 
-      apellido: 'No carga', 
+      nombre: cookieS.get('nombre'),
+      apellido: cookieS.get('apellido'),
       telefono: parseInt(this.cookieS.get('telefono')),
       cedula: parseInt(this.cookieS.get('cedula')),
       idRol: parseInt(this.cookieS.get('rol')),
       correo: this.cookieS.get('correo'),
       contrasena: 'null'
     }
-   }
-  ngOnInit(): void {
-
-    this.datos.getVacanteApi();
-    this.getVacante();
   }
-  
+  ngOnInit(): void {
+    if (this.vacantes.length == 0) {
+      console.log('Cero')
+      this._datos.getVacanteApi();
+      this.getVacante();
+    }
+    this.tabla(this._datos.vacante);
+  }
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit(): void {
@@ -73,32 +77,48 @@ export class MisPostComponent implements OnInit {
   }
 
   getVacante() {
-    this.datos.getVacante().subscribe((respuesta: IVacante[]) => {
-      this.dataSource = new MatTableDataSource(respuesta); //.filter( ( x) => { return x.idCategoria == this.id}));
-      this.dataSource.paginator = this.paginator
+    this._datos.getVacante().subscribe((respuesta: IVacante[]) => {
+      this.tabla(respuesta);
     }, (err: any) => {
       console.error(err);
     });
   }
-  onWacht(vacante: IVacante){
+
+  tabla(v: IVacante[]) {
+    this.dataSource = new MatTableDataSource(v.filter(  x => { return x.idUsuario == this.usuario.idUsuario}));
+    this.dataSource.paginator = this.paginator
+  }
+
+  onWacht(vacante: IVacante) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50%";
     dialogConfig.height = "96%";
-    dialogConfig.data = {vacante};
-    this.dialog.open(TrabajoDetallesComponent,dialogConfig);
+    dialogConfig.data = { vacante };
+    this.dialog.open(TrabajoDetallesComponent, dialogConfig);
   }
-  eliminar(id: number){
-    this.datos.deleteVacante(id);
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "50%";
+    dialogConfig.height = "96%";
+    this.dialog.open(AgregarPostComponent, dialogConfig);
   }
-  onEditar(vacante: IVacante){
+  
+  eliminar(id: number) {
+    this._datos.deleteVacante(id);
+  }
+  
+  onEditar(vacante: IVacante) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50%";
     dialogConfig.height = "96%";
     dialogConfig.data = vacante;
-    this.dialog.open(AgregarPostComponent,dialogConfig);
+    this.dialog.open(AgregarPostComponent, dialogConfig);
   }
 }
 

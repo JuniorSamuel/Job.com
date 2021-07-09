@@ -8,7 +8,7 @@ describe('OfertasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OfertasComponent ]
+      imports: [ OfertasComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('OfertasComponent', () => {
     fixture = TestBed.createComponent(OfertasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

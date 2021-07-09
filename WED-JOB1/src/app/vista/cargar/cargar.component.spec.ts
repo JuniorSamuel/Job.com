@@ -8,7 +8,7 @@ describe('CargarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CargarComponent ]
+      imports: [ CargarComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('CargarComponent', () => {
     fixture = TestBed.createComponent(CargarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

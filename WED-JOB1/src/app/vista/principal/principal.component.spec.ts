@@ -8,7 +8,7 @@ describe('PrincipalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrincipalComponent ]
+      imports: [ PrincipalComponent ]
     })
     .compileComponents();
   });
@@ -17,9 +17,5 @@ describe('PrincipalComponent', () => {
     fixture = TestBed.createComponent(PrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

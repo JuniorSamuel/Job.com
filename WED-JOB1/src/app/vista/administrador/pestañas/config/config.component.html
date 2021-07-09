@@ -1,4 +1,6 @@
-<form >
+<form [formGroup]="formConf">
     <label for="fila">Cantidad de fila:</label>
-    <input type="number" name="fila" id="fila" formControlName='fila'>
+    <input type="number" name="fila" id="fila" 
+    formControlName='fila'>
+    <button type="submit" (click)='onSubmit()' class=" btn bg-blue-p"> Guardar</button>
 </form>

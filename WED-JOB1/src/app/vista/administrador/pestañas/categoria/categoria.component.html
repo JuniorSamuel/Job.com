@@ -27,10 +27,10 @@
                 <ng-container matColumnDef="Acciones">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element" class="d-flex justify-content-end p-1">
-                        <button class="btn btn-warning mx-1" (click)="editar(element)"title="Editar"> 
+                        <button class="btn btn-warning mx-1" (click)="editar(element)" title="Editar"> 
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-danger mx-1"  title="Eliminar"> 
+                        <button class="btn btn-danger mx-1" title="Eliminar"> 
                             <i class="bi bi-trash" (click)="eliminar(element.idCategoria)"></i>
                         </button>
                     </td>

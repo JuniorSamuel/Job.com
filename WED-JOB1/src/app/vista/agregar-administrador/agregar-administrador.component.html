@@ -1,9 +1,13 @@
 <div class="container">
-    <h2>Agregar</h2>
+
+    <h2 *ngIf='editar == null; else title'>Agregar</h2>
+    <ng-template #title>
+        <h2>Datos </h2>
+    </ng-template>
     <hr>
     <form [formGroup]='formUsuario'>
         <div class="form-group row mt-3 ">
-            <div class=" col-sm-12 col-lg-8">
+            <div class=" col-12">
                 <label for="Nombre">Nombre:</label>
                 <input class="form-control lg-3 " type="text" name="nombre" id="nombre" placeholder="Nombre"
                     formControlName="nombre">
@@ -16,7 +20,7 @@
         </div>
 
         <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
+            <div class="col-12">
                 <label for="Apellido">Apellido:</label>
                 <input class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido"
                     formControlName="apellido">
@@ -27,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row mt-3">
-            <div class="col-sm-12 col-lg-8">
+        <div class="form-group row mt-3" *ngIf='rol==1'>
+            <div class="col-12">
                 <select class="form-select" name="select" formControlName="rol">
                     <option value="3"> Poster</option>
                     <option value="2"> Usuario</option>
@@ -36,13 +40,13 @@
                 </select>
                 <div *ngIf="formUsuario.get('rol')?.errors && formUsuario.get('rol')?.touched">
                     <p *ngIf="formUsuario.get('rol')?.hasError('required')" class="color-red">
-                        *Apellido es requerido.*
+                        *Rol es requerido.*
                     </p>
                 </div>
             </div>
         </div>
         <div class="form-group  mt-3">
-            <div class="col-sm-12 col-lg-8">
+            <div class="col-12">
                 <label for="Cedula">Cedula:</label>
                 <input class="form-control" type="number" name="cedula" id="cedula" placeholder="Cedula"
                     formControlName="cedula">
@@ -51,15 +55,15 @@
                         *Cedula es requerido.*
                     </p>
                     <!-- <p *ngIf="formUsuario.get('cedula')?.hasError('min')" class="color-red">
-                    *Cedula Invalido.MN*
-                </p>
-                <p *ngIf="formUsuario.get('cedula')?.hasError('max')" class="color-red">
-                    *Cedula Invalido.MX*
-                </p> -->
+                        *Cedula Invalido.MN*
+                    </p>
+                    <p *ngIf="formUsuario.get('cedula')?.hasError('max')" class="color-red">
+                        *Cedula Invalido.MX*
+                    </p> -->
                 </div>
             </div>
             <div class="form-group  mt-3">
-                <div class="col-sm-12 col-lg-8">
+                <div class="col-12">
                     <label for="Telefono">Telefono:</label>
                     <input class="form-control" type="number" name="telefono" id="telefono" placeholder="Telefono"
                         formControlName="telefono">
@@ -70,7 +74,7 @@
                     </div>
                 </div>
                 <div class="form-group  mt-3">
-                    <div class="col-sm-12 col-lg-8">
+                    <div class="col-12">
                         <label for="Correo">Correo:</label>
                         <input class="form-control" type="email" name="correo" id="correo" placeholder="Correo"
                             formControlName="correo">
@@ -87,7 +91,7 @@
 
                 <div *ngIf='editar == null'>
                     <div class="form-group  mt-3">
-                        <div class="col-sm-12 col-lg-8">
+                        <div class="col-12">
                             <label for="Contraseña">Contraseña:</label>
                             <input class="form-control" type="password" name="contrasena1" id="contrasena1"
                                 placeholder="Contraseña" formControlName="contrasena1">
@@ -103,7 +107,7 @@
                         </div>
                     </div>
                     <div class="form-group  mt-3">
-                        <div class="col-sm-12 col-lg-8">
+                        <div class="col-12">
                             <label for="Confirmar Contraseña">Confirmar Contraseña:</label>
                             <input class="form-control" type="password" name="contrasena2" id="contrasena2"
                                 placeholder="Confirmar Contraseña" formControlName="contrasena2">
@@ -118,16 +122,23 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="form-group row mt-3">
-                    <div class="col-sm-12 col-md-2">
-                        <button type="submit" class="btn bg-blue-p text-center" [disabled]="formUsuario.invalid"
+                <div class="form-group mt-3 d-flex flex-row justify-content-end" *ngIf='habilitar; else ver'>
+                    <div class="">
+                        <button type="submit" class="btn bg-blue-p text-center mx-2" [disabled]="formUsuario.invalid"
                             (click)="onSubmit()">Guardar</button>
                     </div>
-                    <div class="col-sm-12 col-md-2">
-                        <input type="reset" value="Cancelar" class="btn btn-danger" (click)="onClickNo()">
+                    <div class="">
+                        <button type="reset" class="btn btn-danger" (click)="onClickNo()">Cancelar</button>
                     </div>
                 </div>
+                <ng-template #ver>
+                    <div class=" d-flex justify-content-end">
+                        <input type="reset" value="Cerrar" class="btn bg-blue-p" (click)="onClickNo()">
+                    </div>
+                </ng-template>
+
             </div>
         </div>
     </form>

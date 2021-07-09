@@ -6,12 +6,12 @@
     <div class="col-12 col-md-4">
       <form>
         <input class=" form-control" type="text" name="buscarCategoria" id="buscarCategoria"
-          placeholder="Buscar Categoria" (keyup)="setFiltro()" value="" [(ngModel)]="filtro">
+          placeholder="Buscar Categoria"  value="" [(ngModel)]="filtro">
       </form>
     </div>
   </div>
 
-  <div class="table table-s" *ngFor='let categoria of cat'>
+  <div class="table table-s" *ngFor='let categoria of categorias | filtroTabla: filtro'>
     <table class="table my-3">
       <thead>
         <tr>
@@ -25,7 +25,7 @@
         </tr>
       </thead>
         <tbody>
-          <tr *ngFor='let vacante of vacantes; index as i'>
+          <tr *ngFor="let vacante of vacantes; index as i">
             <td *ngIf='vacante.idCategoria == categoria.idCategoria && i<=fila'> {{vacante.compania}} </td>
             <td *ngIf='vacante.idCategoria == categoria.idCategoria && i<=fila'> {{vacante.posicion}} </td>
             <td *ngIf='vacante.idCategoria == categoria.idCategoria && i<=fila'> {{vacante.ubicacion}} </td>

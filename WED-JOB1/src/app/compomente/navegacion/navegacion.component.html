@@ -14,12 +14,12 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active" *ngIf='rol==1'>
-                        <a class="nav-link" routerLink="/Administrador"> Administrador </a>
+                        <a class="nav-link" routerLink='/Cargando_Administrador'> Administrador </a>
                     </li>
                     <li class="nav-item" *ngIf='rol==3'>
                         <a class="nav-link" routerLink="/Mis_post"> Ver mis post </a>
                     <li class="nav-item">
-                        <a class="nav-link"  routerLink="/PerfilU"> {{usuario}} </a>
+                        <a class="nav-link" (click)='mis_post()'> {{usuario}} </a>
                     </li>
 
                     <li class="nav-item">

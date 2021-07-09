@@ -94,12 +94,10 @@
               "src/assets"
             ],
             "styles": [
-              "styles.css",
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [
-              "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+              
             ]
           }
         }

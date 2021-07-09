@@ -1,4 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import { ICategoria } from 'src/app/modelo/categoria';
 import { IRol } from 'src/app/modelo/rol';
@@ -12,7 +15,7 @@ import { ApiService } from '../Api/api.service';
 export class DatosService {
   
   
-  //#region 
+  //#region Variavles
   public usuarios: IUsuario[];
   public categorias: ICategoria[];
   public vacante: IVacante[];
@@ -22,26 +25,75 @@ export class DatosService {
   private categorias$: Subject<ICategoria[]>;
   private vacante$: Subject<IVacante[]>;
   private rol$: Subject<IRol[]>;
+private userVal$: Subject<boolean>;
+  public auth: boolean;
+  userVal: boolean;
 
   //#endregion
-  constructor(private _api: ApiService) { 
+  constructor(private _api: ApiService, private _cookie: CookieService, private router: Router) { 
     this.categorias = [];
     this.usuarios = [];
     this.vacante = [];
     this.rol = [];
-
+  
     this.usuarios$ = new Subject();
     this.categorias$ = new Subject();
     this.vacante$= new Subject();
     this.rol$ = new Subject();
+    this.userVal$ =new Subject();
+
+    this.auth = true;
+    this.userVal =false;
   }
 
   cargar() {
     this.getCategoriasApi();
     this.getVacanteApi();
   }
+  
+  //Verificar
+  verificarAuth(): boolean{
+    this._api.VerificarAuth().subscribe( x => {
+      this.auth = x;      
+    },(err: HttpErrorResponse) => {
+      if (err.status === 401) {
+        this._cookie.deleteAll();
+        this.router.navigate(['/Login'])
+        this.auth = false;      
+      }
+    });
+    return this.auth;
+  }
+  //Cookei
+  getUsuarioCookei(): IUsuario{
+    var usuario: IUsuario = {
+      idUsuario: parseInt(this._cookie.get('ID')),
+      nombre: this._cookie.get('nombre'),
+      apellido: this._cookie.get('apellido'),
+      cedula: parseInt(this._cookie.get('cedula')),
+      telefono: parseInt(this._cookie.get('telefono')),
+      correo: this._cookie.get('correo'),
+      idRol: parseInt(this._cookie.get('rol')),
+      contrasena: ''
+    }
 
+    return usuario;
+  }
 
+  setUsuarioCookei(data: any): void{
+    this._cookie.set('token', data.token);
+    this._cookie.set('ID', data.idUsuario+'');
+    this._cookie.set('nombre', data.nombre);
+    this._cookie.set('apellido', data.apellido)
+    this._cookie.set('cedula', data.cedula+'');
+    this._cookie.set('telefono', data.telefono+'');
+    this._cookie.set('correo', data.correo);
+    this._cookie.set('rol', data.idRol+'')
+  }
+
+  deleteCookie(){
+    this._cookie.deleteAll();
+  }
   //Api
   getUsuariosApi() {
     this._api.getUsuarios().subscribe((respuesta: any) => {
@@ -96,6 +148,7 @@ export class DatosService {
   }
 
   postVacante(vacante: IVacante){
+    console.log(vacante);
     this._api.postVacante(vacante).subscribe((vacante: IVacante) =>{
       this.vacante.push(vacante);
       this.vacante$.next(this.vacante);
@@ -151,6 +204,7 @@ export class DatosService {
   }
 
   putVacante(vacante: IVacante) {
+    console.log(vacante);
     this._api.putVacante(vacante).subscribe(x => {
       this.getVacanteApi()
     }, (err: any) => {

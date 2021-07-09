@@ -7,13 +7,14 @@ import { MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule, routesComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UsuarioComponent } from './vista/administrador/pestañas/usuario/usuario.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PosterComponent } from './vista/administrador/pestañas/poster/poster.component';
 import { CategoriaComponent } from './vista/administrador/pestañas/categoria/categoria.component';
 import { PostComponent } from './vista/administrador/pestañas/post/post.component';
@@ -25,7 +26,6 @@ import { ModalpruebaComponent } from './vista/administrador/pestañas/usuario/mo
 import { OfertasComponent } from './vista/ofertas/ofertas.component';
 
 import {MatDialogModule} from '@angular/material/dialog';//PARA PRUEBA
-import { AgregarcategoriaComponent } from './vista/agregarcategoria/agregarcategoria.component';//PARA PRUEBA
 import { AgregarPostComponent } from './vista/agregar-post/agregar-post.component';
 import { AgregarAdministradorComponent } from './vista/agregar-administrador/agregar-administrador.component';
 import { AgregarCategoriaComponent } from './vista/agregar-categoria/agregar-categoria.component';
@@ -35,6 +35,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { RegistrarComponent } from './vista/registrar/registrar.component';
 import { MisPostComponent } from './vista/mis-post/mis-post.component';
 import { JwtInteceptorInterceptor } from './servicios/intercepto/jwt-inteceptor.interceptor';
+import { FiltroTablaPipe } from './pipe/filtro-tabla.pipe';
+import { CargarAdmitComponent } from './vista/cargar-admit/cargar-admit.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { JwtInteceptorInterceptor } from './servicios/intercepto/jwt-inteceptor.
     RegistrarComponent,
     CargarComponent,
     // CargarComponent,
-    MisPostComponent
+    MisPostComponent,  
+    FiltroTablaPipe, CargarAdmitComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { JwtInteceptorInterceptor } from './servicios/intercepto/jwt-inteceptor.
   ],
 
   providers: [
+    routesComponent,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -87,7 +91,7 @@ import { JwtInteceptorInterceptor } from './servicios/intercepto/jwt-inteceptor.
   ],
   bootstrap: [AppComponent],
 
-  entryComponents:[AgregarcategoriaComponent, AgregarPostComponent] //PARA ABRIR DIALOG
+  entryComponents:[AgregarCategoriaComponent, AgregarPostComponent] //PARA ABRIR DIALOG
 
 })
 export class AppModule { }

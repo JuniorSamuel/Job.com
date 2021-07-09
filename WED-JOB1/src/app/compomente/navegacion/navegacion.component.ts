@@ -30,6 +30,14 @@ export class NavegacionComponent implements OnInit {
     this._dialog.open(AgregarPostComponent,dialogConfig);
   }
 
+  admit(){
+    this._router.navigate(['Administrador'] )
+  }
+
+  mis_post(){
+    this._router.navigate(['PerfilU'])
+  }
+
   salir(){
     this._cookieS.deleteAll()
     this._router.navigate(['/Login']);

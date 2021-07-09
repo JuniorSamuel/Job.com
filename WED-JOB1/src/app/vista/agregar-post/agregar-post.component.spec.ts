@@ -8,18 +8,14 @@ describe('AgregarPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarPostComponent ]
+      imports: [ AgregarPostComponent ]
     })
     .compileComponents();
-  });
+  });  
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AgregarPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

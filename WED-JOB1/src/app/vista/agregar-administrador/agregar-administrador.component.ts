@@ -7,6 +7,7 @@ import { DatosService } from 'src/app/servicios/cargar/datos.service';
 import { AdministradorComponent } from '../administrador/administrador.component';
 
 import Swal from 'sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-agregar-administrador',
@@ -15,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class AgregarAdministradorComponent implements OnInit {
 
-  
+  rol: number;
   habilitar: boolean = true;
   usuario: IUsuario | undefined;
   contrasena: string = '';  
@@ -27,24 +28,31 @@ export class AgregarAdministradorComponent implements OnInit {
     cedula: ['', Validators.required],
     telefono: ['',Validators.required],
     correo: ['', [Validators.required, Validators.email]],
-    contrasena1: ['',[Validators.required, Validators.minLength(8)]],
-    contrasena2: ['', [Validators.required, Validators.minLength(8)]],
+    contrasena1: [''],
+    contrasena2: [''],
+    // contrasena1: ['',[Validators.required, Validators.minLength(8)]],
+    // contrasena2: ['', [Validators.required, Validators.minLength(8)]],
     rol: ['',Validators.required]
   });
   constructor(
+    private _cookei: CookieService,
     public dialogRef: MatDialogRef<AgregarAdministradorComponent>,
     private _dato: DatosService,
     @Inject(MAT_DIALOG_DATA) public editar: { usuario: IUsuario, editar: boolean }, private formBuilder: FormBuilder
-  ){}
+  ){
+    this.rol = parseInt(_cookei.get('ID'));
+  }
 
   ngOnInit(): void {
     if (this.editar != null) {
       this.onEdit();
       if (!this.editar.editar) {
         this.onInavilitar();
+        this.habilitar = false;
       }
     } else {
-      this.formUsuario.controls['rol'].setValue("2")
+      this.formUsuario.controls['rol'].setValue("2");
+      
     }
   }
 
@@ -65,24 +73,34 @@ export class AgregarAdministradorComponent implements OnInit {
           contrasena: this.contrasena
         }
         this._dato.postUsuario(this.usuario);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Ha sido guardado.',
-          showConfirmButton: false,
-          timer: 1500
-          
-        })
+        Swal.fire(
+          'Guardado',
+          'Ha sido guardado con exito!',
+          'success'
+        )
+        // Swal.fire({
+        //   position: 'top-end',
+        //   icon: 'success',
+        //   title: 'Ha sido guardado.',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // })
       }else{
         // alert('Contraseña no coinciden');
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'Contraseñas no coinciden!',
-          text: 'Debe confirmar la contraseña.',
-          showConfirmButton: false,
-          timer: 2000
-        })
+        Swal.fire(
+          'Contraseñas no coinciden!',
+          'Debe coincidir ambas contraseñas.',
+          'error'
+        )
+        // Swal.fire({
+        //   position: 'top-end',
+        //   icon: 'error',
+        //   title: 'Contraseñas no coinciden!',
+        //   text: 'Debe confirmar la contraseña.',
+        //   showConfirmButton: false,
+        //   timer: 2000
+        // })
+        // this.onSubmit();
       }
     } else {
       this.usuario = {
@@ -93,8 +111,10 @@ export class AgregarAdministradorComponent implements OnInit {
         cedula: this.formUsuario.value.cedula,
         telefono: this.formUsuario.value.telefono,
         correo: this.formUsuario.value.correo,
-        contrasena: this.formUsuario.value.contrasena1
+        contrasena: this.contrasena
       }
+
+      console.log(this.usuario)
       Swal.fire({
         title: 'Quiere guardar los cambios?',
         showDenyButton: true,
@@ -111,13 +131,12 @@ export class AgregarAdministradorComponent implements OnInit {
             cedula: this.formUsuario.value.cedula,
             telefono: this.formUsuario.value.telefono,
             correo: this.formUsuario.value.correo,
-            contrasena: this.formUsuario.value.contrasena1});
+            contrasena: this.contrasena});
           Swal.fire('Editado!', '', 'success')
         } else if (result.isDenied) {
           Swal.fire('Los cambios no se guardaron', '', 'info')
         }
       })
-      this._dato.putUsuario(this.usuario);
     }
     
     this.onClickNo()

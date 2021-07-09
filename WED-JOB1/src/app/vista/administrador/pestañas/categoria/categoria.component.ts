@@ -1,9 +1,8 @@
-import { AgregarcategoriaComponent } from './../../../agregarcategoria/agregarcategoria.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICategoria } from 'src/app/modelo/categoria';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DatosService } from 'src/app/servicios/cargar/datos.service';
 import { IUsuario } from 'src/app/modelo/usuario';
 import { AgregarCategoriaComponent } from 'src/app/vista/agregar-categoria/agregar-categoria.component';
@@ -17,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class CategoriaComponent implements OnInit {
 
-
+  //#region Variable
   datoCargada: boolean = true
 
   //Table
@@ -31,23 +30,25 @@ export class CategoriaComponent implements OnInit {
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  constructor(private datos: DatosService, private dialog: MatDialog) { }
+  //#endregion
+  constructor(
+    private datos: DatosService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.table(this.datos.categorias);
-    if(this.datos.categorias != []){
-      this.datos.getCategoriasApi();
+    if (this.datos.categorias != []) {
       this.datos.getCategoria().subscribe((respuesta: ICategoria[]) => {
         this.table(respuesta);
       });
     }
   }
 
-  table(categoria: ICategoria[]){
-    if(categoria == []) this.datoCargada = false;
+  table(categoria: ICategoria[]) {
+    if (categoria == []) this.datoCargada = false;
     this.dataSource = new MatTableDataSource<ICategoria>(categoria);
-    this.dataSource.paginator = this.paginator;    
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -73,15 +74,15 @@ export class CategoriaComponent implements OnInit {
     this.dataSource.filter = this.filtro.trim().toLowerCase();
   }
   //PROBANDO MODAL
-  onCreate(){
+  onCreate() {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "25%";
-    this.dialog.open(AgregarCategoriaComponent,dialogConfig);  
+    this.dialog.open(AgregarCategoriaComponent, dialogConfig);
   }
 
-  eliminar(id: number){
+  eliminar(id: number) {
     console.log(id);
     // this.datos.deleteCategoria(id);
     Swal.fire({
@@ -96,7 +97,11 @@ export class CategoriaComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log('Selecciono elimiar el ', id);
-        this.datos.deleteCategoria(id);
+        this.datos.deleteCategoria(id).subscribe((respuesta: any) => {
+          console.log(respuesta)
+        }, (err: any) => {
+          console.error(err)
+        });
         Swal.fire(
           'Eliminado!',
           'Ha sido eliminado.',
@@ -106,7 +111,7 @@ export class CategoriaComponent implements OnInit {
     })
   }
 
-  editar(categoria: any){
+  editar(categoria: any) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -114,6 +119,6 @@ export class CategoriaComponent implements OnInit {
     dialogConfig.data = categoria
 
     // dialogConfig.height = "20%";
-    this.dialog.open(AgregarCategoriaComponent,dialogConfig);
+    this.dialog.open(AgregarCategoriaComponent, dialogConfig);
   }
 }

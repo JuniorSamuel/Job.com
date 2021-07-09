@@ -17,11 +17,9 @@ export class AdmitGuard implements CanActivate {
 
     if(rol == 1){
       return true;
-    }else{  
-      this.router.navigate(['/Principal']);
+    }else{
+      return this.router.navigate(['/Principal']);
     }
-    
-    return false;
   }
   
 }
