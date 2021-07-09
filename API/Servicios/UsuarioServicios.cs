@@ -109,6 +109,7 @@ namespace API.Servicios
             try
             {
                 var Usuario = await _dbContext.Usuarios.Where(u => u.IdUsuario == UsuarioId).FirstOrDefaultAsync();
+                if (Usuario == null) return null;
                 var UsuarioSinCont = new Usuario
                 {
                     IdUsuario = Usuario.IdUsuario,
@@ -140,26 +141,30 @@ namespace API.Servicios
             }
         }
 
-        public async Task<Usuario> UpdateUsuarioAsync(Usuario usuario)
+        public async Task<Usuario> UpdateUsuarioAsync(Usuario _usuario)
         {
             try
             {
-                usuario.Contrasena = Encrypt.GetSHA256(usuario.Contrasena);
-                var contra = usuario.Contrasena;
+                var usuario = new Usuario();
+                usuario.IdUsuario = _usuario.IdUsuario;
+                usuario.Nombre = _usuario.Nombre;
+                usuario.IdRol = _usuario.IdRol;
+                usuario.Apellido = _usuario.Apellido;
+                usuario.Correo = _usuario.Correo;
+                usuario.Cedula = _usuario.Cedula;
+                usuario.Telefono = _usuario.Telefono;
 
-                if (usuario.IdUsuario > 0)
-                {
-                    
-                    _dbContext.Entry(usuario).State = EntityState.Modified;
-                    if(usuario.Contrasena == null)
-                    {
-                        usuario.Contrasena = contra;
-                    }
-                    await _dbContext.SaveChangesAsync();
-                    return usuario;
-                }
+                _dbContext.Usuarios.Attach(usuario);
+                _dbContext.Entry(usuario).Property( x => x.Nombre).IsModified =true;
+                _dbContext.Entry(usuario).Property(x => x.Apellido).IsModified = true;
+                _dbContext.Entry(usuario).Property(x => x.IdRol).IsModified = true;
+                _dbContext.Entry(usuario).Property(x => x.Cedula).IsModified = true;
+                _dbContext.Entry(usuario).Property(x => x.Correo).IsModified = true;
+                _dbContext.Entry(usuario).Property(x => x.Telefono).IsModified = true;
+                _dbContext.SaveChanges();
 
-                throw new Exception("Usuario no encontrado");
+
+                return usuario;
             }
             catch
             {
@@ -174,11 +179,17 @@ namespace API.Servicios
                 var Usuario = await GetUsuarioByIdAsync(UsuarioId);
                 if(Usuario != null)
                 {
-                    _dbContext.Set<Usuario>().Remove(Usuario);
-                    //_dbContext.Usuarios.Remove(Usuario);
+                    //_dbContext.Set<Usuario>().Remove(Usuario);
+                    _dbContext.Usuarios.Remove(Usuario);
                     await _dbContext.SaveChangesAsync();
                 }
             }
+
+
+
+
+
+
             catch
             {
                 throw;
@@ -186,3 +197,4 @@ namespace API.Servicios
         }      
     }
 }
+
