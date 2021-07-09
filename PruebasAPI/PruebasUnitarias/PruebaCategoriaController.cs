@@ -1,6 +1,7 @@
 ﻿using API.Controllers;
 using API.Models;
 using API.Servicios;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace PruebasAPI.PruebasUnitarias
     [TestClass]
     public class PruebaCategoriaController : BasePruebas
     {
+        [TestInitialize]
+
+
         [TestMethod]
         public async Task GetCategoriasAsync()
         {
@@ -22,25 +26,17 @@ namespace PruebasAPI.PruebasUnitarias
             contexto.Categorias.Add(new Categoria { Nombre = "Categoria 2" });
             await contexto.SaveChangesAsync();
 
-            
+            //var contexto2 = ConstruirContext(nombreDB);
             var categoriasServicios = new CategoriaServicios(contexto);
 
             //Ejecucion
+            var ID = 1;
             var Controller = new CategoriaController(categoriasServicios);
-            var respuesta = await Controller.GetCategoriasAsync();
+            var respuesta = await Controller.GetCategoriaByIdAsync(ID);
 
             //Verificacion
-            var categorias = respuesta;
-            Assert.AreEqual(2, categorias);
-        }
-
-        public List<Categoria> GetTest()
-        {
-            var testCategoria = new List<Categoria>();
-            testCategoria.Add(new Categoria { IdCategoria = 1, Nombre = "Categoria de Prueba" });
-            testCategoria.Add(new Categoria { IdCategoria = 2, Nombre = "Categoria 2" });
-
-            return testCategoria;
+            var categorias = respuesta.Value;
+            Assert.AreEqual(ID, categorias.IdCategoria);
         }
     }
 }
